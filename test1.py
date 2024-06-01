@@ -1,16 +1,18 @@
-text = input('Введите строку')  # получаем строку
+alpha='abcdefghigklmnopqrstuvwxyz'
+alphaup='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+number = int(input('Введите число, на которое надо сдвинуть текст:'))
 
-first = text[0]  # сохраняем первый символ
-count = 0  # заводим счетчик
-result = ''  # и результирующую строку
-
-for c in text:
-    if c == first:  # если символ совпадает с сохраненным,
-        count += 1  # то увеличиваем счетчик
+summary = ''
+def changeChar(char):
+    if char in alpha:
+        return alpha[(alpha.index(char) + number) % len(alpha)]
+    elif char in alphaup:
+        return alphaup[(alphaup.index(char) + number) % len(alphaup)]
     else:
-        result += first + str(count)  # иначе - записываем в результат
-        first = c  # и обновляем сохраненный символ с его счетчиком
-        count = 1
-
-result += first + str(count)  # и добавляем в результат последний символ
-print(result)
+         return char
+with open ('Color of the night_engl.txt') as myfile:
+    for line in myfile:
+        for char in line:
+            summary+=changeChar(char)
+with open ('Color of the night_engl.txt', 'w') as myfile:
+    myfile.write (summary)
